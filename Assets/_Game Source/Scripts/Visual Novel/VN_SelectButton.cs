@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class VN_WorldButton : MonoBehaviour
+public class VN_SelectButton : MonoBehaviour
 {
-    public string buttonId;
+    public string btnId;
+    public TextMeshProUGUI txtContent;
     public Button mButton;
 
     private Action<string> onClickCallback;
@@ -16,11 +17,12 @@ public class VN_WorldButton : MonoBehaviour
         if (mButton == null) mButton = GetComponent<Button>();
     }
 
-    
-    public void SetButton( Action<string> callback)
+  
+    public void SetButton(string msg, Action<string> callback)
     {
         if (mButton == null) mButton = GetComponent<Button>();
 
+        txtContent.text = msg;
         onClickCallback = callback;
 
         mButton.onClick.RemoveListener(OnButtonClick);
@@ -31,7 +33,7 @@ public class VN_WorldButton : MonoBehaviour
 
     private void OnButtonClick()
     {
-        onClickCallback?.Invoke(buttonId);
+        onClickCallback?.Invoke(btnId);
     }
 
     private void OnDestroy()

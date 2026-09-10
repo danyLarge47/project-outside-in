@@ -841,6 +841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 196231905}
   - component: {fileID: 196231906}
+  - component: {fileID: 196231907}
   m_Layer: 0
   m_Name: Panel Area Select
   m_TagString: Untagged
@@ -890,6 +891,19 @@ MonoBehaviour:
   onWindowClosed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &196231907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196231904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ee2b0728f44db88f47bde68680b1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VN_Map_Characters
+  WorldButtons: []
 --- !u!1 &242604547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,8 +1053,9 @@ GameObject:
   m_Component:
   - component: {fileID: 261766895}
   - component: {fileID: 261766894}
+  - component: {fileID: 261766896}
   m_Layer: 0
-  m_Name: UI Manager
+  m_Name: VN Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1147,7 +1162,7 @@ Transform:
   m_GameObject: {fileID: 261766893}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 205.5, y: 109.50001, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1157,6 +1172,25 @@ Transform:
   - {fileID: 350470095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &261766896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261766893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ef9213b77d4bb2bf49b1fe922bf08b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VN_World_Manager
+  worldMap: {fileID: 0}
+  characterMap: {fileID: 0}
+  characterInteractions: {fileID: 0}
+  dialogueDelivery: {fileID: 0}
+  dialogueChoice: {fileID: 0}
+  characters: []
+  dialogues: []
 --- !u!1 &292220387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +1954,51 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!1 &608221592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 608221594}
+  - component: {fileID: 608221593}
+  m_Layer: 0
+  m_Name: World Change
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &608221593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608221592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b95b8b10b584f6daa17d7d1fa77a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrientationManager
+  preferredLandscape: 3
+--- !u!4 &608221594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608221592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &610187308
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 746455648}
   - component: {fileID: 746455649}
+  - component: {fileID: 746455650}
   m_Layer: 0
   m_Name: Panel Character Select
   m_TagString: Untagged
@@ -2311,6 +2391,19 @@ MonoBehaviour:
   onWindowClosed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &746455650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746455647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ee2b0728f44db88f47bde68680b1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VN_Map_Characters
+  WorldButtons: []
 --- !u!1 &754309680
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,6 +3767,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1252808319}
   - component: {fileID: 1252808320}
+  - component: {fileID: 1252808323}
+  - component: {fileID: 1252808322}
+  - component: {fileID: 1252808321}
   m_Layer: 0
   m_Name: Panel VN
   m_TagString: Untagged
@@ -3723,6 +3819,58 @@ MonoBehaviour:
   onWindowClosed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1252808321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252808318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a36f14b853541af82dbc5efe1f29f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VN_Dialogue_Choice
+  listParent: {fileID: 0}
+  btnChoice: {fileID: 0}
+  showChoices: {fileID: 0}
+  hideChoices: {fileID: 0}
+  availableButtons: []
+--- !u!114 &1252808322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252808318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ecffc00f57a4357af13b3f4029ec2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VN_Dialogue_Delivery
+  characterPortrait: {fileID: 0}
+  characterName: {fileID: 0}
+  characterDialogue: {fileID: 0}
+  nextButton: {fileID: 0}
+  closeDialogueUI: {fileID: 0}
+  showDialogueUI: {fileID: 0}
+--- !u!114 &1252808323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252808318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e1bb5bc9b7942d9b45576e649548f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VN_Interactions
+  listParent: {fileID: 0}
+  btnChoice: {fileID: 0}
+  show: {fileID: 0}
+  hide: {fileID: 0}
+  availableButtons: []
 --- !u!1 &1301887480
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,3 +5888,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 46469236}
   - {fileID: 261766895}
+  - {fileID: 608221594}
