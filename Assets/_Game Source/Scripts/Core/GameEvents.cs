@@ -132,7 +132,7 @@ public class GameEvents
     public static readonly CustomEvents Universal_BackButton = new();
     public static readonly CustomEvents<string, float , float> PlaySFX = new();
     
-    public static readonly CustomEvents EssentialsInitialized = new();
+    public static readonly CustomEvents<GameViewMode> OnModeChanged = new();
     
     
 

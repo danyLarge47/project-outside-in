@@ -9,17 +9,31 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Game Content Database", menuName = "Dany Custom/Game Content Database")]
 
-public class VN_ContentDownloader : ScriptableObject
+public class VN_ContentDownloader : SerializedScriptableObject
 {
     
     // https://docs.google.com/spreadsheets/d/1aYsFUwuutv91vJtMCteGCGjwz6x-JtfFIApBpEYkjfM/edit?gid=1326626947#gid=1326626947
     
     
       const string databaseSheetsId = "1aYsFUwuutv91vJtMCteGCGjwz6x-JtfFIApBpEYkjfM";
+      const string guid_interactions = "1984216692";
     const string guid_contents = "1326626947";
 
-    [FoldoutGroup("Raw Data"), SerializeField, TableList]
-    private List<ContentRow> raw_contents = new();
+    
+    [SerializeField] private Dictionary<string, InteractionNode> interactions_database = new();
+    public IEnumerable<InteractionNode> Interactions => interactions_database.Values;
+
+    public InteractionNode GetInteractionNode(string interactionId)
+    {
+        if (interactions_database.ContainsKey(interactionId)) return interactions_database[interactionId];
+        return null;
+    }
+    
+    public bool CheckInteractionNode(string interactionId)
+    {
+        return interactions_database.ContainsKey(interactionId);
+    }
+    
 
     [SerializeField] private Dictionary<string, ContentNode> content_database = new();
     public IEnumerable<ContentNode> Nodes => content_database.Values;
@@ -31,6 +45,49 @@ public class VN_ContentDownloader : ScriptableObject
     }
 
 #if UNITY_EDITOR
+ 
+    public async Task  DownloadInteractionData()
+    {
+        var tsvData = await DL_JSON.DownloadSheetsTsv(databaseSheetsId, guid_interactions);
+        if (tsvData == null)
+        {
+            Debug.LogWarning($"Null TSV");
+            return;
+        }
+
+        string jsonData = DL_JSON.ConvertTsvToJson<InteractionRow>(tsvData);
+        var raw_contents = DL_JSON.ArrayFromJsonNoWrapper<InteractionRow>(jsonData).ToList();
+        raw_contents = raw_contents.Where(item => !string.IsNullOrEmpty(item.Row_Type)).ToList();
+        PopulateInteractionsDatabase(raw_contents);
+        EditorUtility.SetDirty(this);
+    }
+
+    void PopulateInteractionsDatabase(List<InteractionRow> data)
+    {
+        InteractionNode tempNode = null;
+        for (int i = 0; i < data.Count; i++)
+        {
+            if (string.IsNullOrEmpty(data[i].Row_Type)) continue;
+
+            if (data[i].Row_Type.Equals("NodeStart"))
+            {
+                var newNode = new InteractionNode();
+                newNode.Id = data[i].Interaction_Id;
+                if (interactions_database.ContainsKey(newNode.Id))
+                {
+                    Debug.LogWarning($"Interaction {newNode.Id} already exist");
+                    tempNode = null;
+                    continue;
+                }
+
+                interactions_database.Add(newNode.Id, newNode);
+                tempNode = newNode;
+                continue;
+            }
+
+            if (tempNode != null) tempNode.interactionRows.Add(data[i].GetDuplicate());
+        }
+    }
 
     public async Task DownloadContentData()
     {
@@ -43,7 +100,7 @@ public class VN_ContentDownloader : ScriptableObject
         }
 
         string jsonData = DL_JSON.ConvertTsvToJson<ContentRow>(tsvData);
-        raw_contents = DL_JSON.ArrayFromJsonNoWrapper<ContentRow>(jsonData).ToList();
+       var raw_contents = DL_JSON.ArrayFromJsonNoWrapper<ContentRow>(jsonData).ToList();
         raw_contents = raw_contents.Where(item => !string.IsNullOrEmpty(item.Row_Type)).ToList();
         PopulateContentDatabase(raw_contents);
         EditorUtility.SetDirty(this);
@@ -76,8 +133,8 @@ public class VN_ContentDownloader : ScriptableObject
     [Button(ButtonSizes.Large)]
     public void ResetAll()
     {
-        raw_contents.Clear();
         content_database.Clear();
+        interactions_database.Clear();
     }
 
     [Button(ButtonSizes.Large)]
@@ -85,6 +142,7 @@ public class VN_ContentDownloader : ScriptableObject
     {
         try
         {
+            await DownloadInteractionData();
             await DownloadContentData();
         }
         catch (System.Exception error)

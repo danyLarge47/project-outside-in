@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Attack : MonoBehaviour
 {
@@ -14,34 +15,47 @@ public class Attack : MonoBehaviour
 
 	public GameObject cam;
 
+	public InputActionReference attackAction;
+	public InputActionReference throwAction;
+
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
+	private void OnEnable()
+	{
+		attackAction.action.performed += OnAttack;
+		throwAction.action.performed += OnThrow;
 
-    // Update is called once per frame
-    void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.X) && canAttack)
-		{
-			canAttack = false;
-			animator.SetBool("IsAttacking", true);
-			StartCoroutine(AttackCooldown());
-		}
+		attackAction.action.Enable();
+		throwAction.action.Enable();
+	}
 
-		if (Input.GetKeyDown(KeyCode.V))
-		{
-			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
-			Vector2 direction = new Vector2(transform.localScale.x, 0);
-			throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction; 
-			throwableWeapon.name = "ThrowableWeapon";
-		}
+	private void OnDisable()
+	{
+		attackAction.action.performed -= OnAttack;
+		throwAction.action.performed -= OnThrow;
+
+		attackAction.action.Disable();
+		throwAction.action.Disable();
+	}
+
+	private void OnAttack(InputAction.CallbackContext context)
+	{
+		if (!canAttack) return;
+
+		canAttack = false;
+		animator.SetBool("IsAttacking", true);
+		StartCoroutine(AttackCooldown());
+	}
+
+	private void OnThrow(InputAction.CallbackContext context)
+	{
+		GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject;
+		Vector2 direction = new Vector2(transform.localScale.x, 0);
+		throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
+		throwableWeapon.name = "ThrowableWeapon";
 	}
 
 	IEnumerator AttackCooldown()

@@ -1,92 +1,87 @@
-using System;
+using GameCreator.Runtime.VisualScripting;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public enum GameMode
+public enum GameViewMode
 {
     VisualNovel,
     Platformer
 }
 
-[DefaultExecutionOrder(-100)]
 public class OrientationManager : MonoBehaviour
 {
-    public static OrientationManager Instance { get; private set; }
+    [Title("State")]
+    public GameViewMode CurrentMode;
+    [ReadOnly] public bool IsLocked;
 
-    public GameMode CurrentMode { get; private set; }
-    public bool IsLocked { get; private set; }
+    [Title("Transitions")]
+    public Actions transitionToVisualNovel;
+    public Actions transitionToPlatformer;
 
-    /// Fires when the mode flips, and once at initialization.
-    public event Action<GameMode> OnModeChanged;
-
-    [Tooltip("Which landscape variant to use when locking to Platformer.")] [SerializeField]
-    private ScreenOrientation preferredLandscape = ScreenOrientation.LandscapeLeft;
-
-    private int _lastW, _lastH;
-    private bool _initialized;
-
-    private void Awake()
+    private void OnEnable()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        GameEvents.OnModeChanged.AddListener(SetGameMode);
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        ReleaseOrientation();
-        // start in Auto, follow the phone
-    }
-
-    private void Update()
-    {
-        if (IsLocked) return; // OS won't rotate while locked
-        if (Screen.width == _lastW && Screen.height == _lastH) return;
-        _lastW = Screen.width;
-        _lastH = Screen.height;
-        ApplyMode(Screen.width >= Screen.height ? GameMode.Platformer : GameMode.VisualNovel);
+        GameEvents.OnModeChanged.RemoveListener(SetGameMode);
     }
 
     // ---- Control -------------------------------------------------------
+
     [Button(ButtonSizes.Large)]
     private void ToggleOrientation()
     {
-        var target = ScreenOrientation.Portrait;
-
-        if (target == ScreenOrientation.Portrait)
-            target = ScreenOrientation.LandscapeLeft;
-        else
-            target = ScreenOrientation.Portrait;
-
-        SetGameOrientation(target);
+        SetGameMode(CurrentMode == GameViewMode.Platformer
+            ? GameViewMode.VisualNovel
+            : GameViewMode.Platformer);
     }
 
-
-    public void SetGameOrientation(ScreenOrientation target)
+    // async void: this is an event handler (OnModeChanged listener), which is the
+    // one place async void is appropriate. IsLocked guards against re-entry.
+    public async void SetGameMode(GameViewMode mode)
     {
-        if (target == ScreenOrientation.AutoRotation)
-        {
-            ReleaseOrientation();
-            return;
-        }
-
-        Screen.orientation = target; // OS locks to this
+        // Ignore new requests while a transition is already running.
+        if (IsLocked) return;
         IsLocked = true;
-        ApplyMode(ToMode(target)); // announce immediately (instant)
+
+        CurrentMode = mode;
+
+        try
+        {
+            // Freeze rotation so the device can't rotate mid-transition,
+            // then run the transition (block view -> adjust UI -> reveal).
+            FreezeOrientation();
+
+            Actions transition = mode == GameViewMode.Platformer
+                ? transitionToPlatformer
+                : transitionToVisualNovel;
+
+            if (transition != null) await transition.Run();
+
+            // Let orientation follow the device again once we've settled.
+            ReleaseOrientation();
+        }
+        finally
+        {
+            // Always release the lock, even if the transition throws.
+            IsLocked = false;
+        }
     }
 
-    public void SetGameMode(GameMode mode)
+    // ---- Rotation -------------------------------------------------------
+
+    /// Lock the screen to the orientation currently showing (no visual rotation,
+    /// just prevents the device from rotating during a transition).
+    public void FreezeOrientation()
     {
-        SetGameOrientation(mode == GameMode.VisualNovel
-            ? ScreenOrientation.Portrait
-            : preferredLandscape);
+        Screen.orientation = Screen.width >= Screen.height
+            ? ScreenOrientation.LandscapeLeft
+            : ScreenOrientation.Portrait;
     }
 
+    /// Re-enable auto-rotation so orientation follows the device again.
     public void ReleaseOrientation()
     {
         Screen.autorotateToPortrait = true;
@@ -94,29 +89,5 @@ public class OrientationManager : MonoBehaviour
         Screen.autorotateToLandscapeLeft = true;
         Screen.autorotateToLandscapeRight = true;
         Screen.orientation = ScreenOrientation.AutoRotation;
-
-        IsLocked = false;
-        _lastW = Screen.width;
-        _lastH = Screen.height;
-        ApplyMode(Screen.width >= Screen.height ? GameMode.Platformer : GameMode.VisualNovel);
-    }
-
-    // ---- Internals -----------------------------------------------------
-
-    private static GameMode ToMode(ScreenOrientation o)
-    {
-        return o == ScreenOrientation.Portrait || o == ScreenOrientation.PortraitUpsideDown
-            ? GameMode.VisualNovel
-            : GameMode.Platformer;
-    }
-
-    private void ApplyMode(GameMode mode)
-    {
-        
-        Debug.Log($"Change mode to {mode}");
-        if (_initialized && mode == CurrentMode) return;
-        _initialized = true;
-        CurrentMode = mode;
-        OnModeChanged?.Invoke(mode);
     }
 }

@@ -27,6 +27,16 @@ public class VN_DialogueData
     public List<VN_ChoiceData> choices = new List<VN_ChoiceData>();
 }
 
+
+[Serializable]
+public class VN_DialogueContent
+{
+    public string contentId; 
+    public List<VN_DialogueData> dialogues = new () ;
+}
+
+
+
 [Serializable]
 public class VN_CharacterData
 {
@@ -89,3 +99,11 @@ public class InteractionRow
         };
     }
 }
+
+[Serializable]
+public class InteractionNode
+{
+    public string Id;
+    [TableList] public List<InteractionRow> interactionRows = new();
+}
+

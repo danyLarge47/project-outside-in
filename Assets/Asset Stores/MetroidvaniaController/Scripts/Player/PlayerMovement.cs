@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -13,39 +14,48 @@ public class PlayerMovement : MonoBehaviour {
 	bool jump = false;
 	bool dash = false;
 
-	//bool dashAxis = false;
-	
-	// Update is called once per frame
-	void Update () {
+	[SerializeField] InputActionReference moveAction;
+	[SerializeField] InputActionReference jumpAction;
+	[SerializeField] InputActionReference dashAction;
 
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+	void OnEnable()
+	{
+		moveAction.action.performed += OnMove;
+		moveAction.action.canceled += OnMove;
+		jumpAction.action.performed += OnJump;
+		dashAction.action.performed += OnDash;
 
+		moveAction.action.Enable();
+		jumpAction.action.Enable();
+		dashAction.action.Enable();
+	}
+
+	void OnDisable()
+	{
+		moveAction.action.performed -= OnMove;
+		moveAction.action.canceled -= OnMove;
+		jumpAction.action.performed -= OnJump;
+		dashAction.action.performed -= OnDash;
+
+		moveAction.action.Disable();
+		jumpAction.action.Disable();
+		dashAction.action.Disable();
+	}
+
+	void OnMove(InputAction.CallbackContext context)
+	{
+		horizontalMove = context.ReadValue<float>() * runSpeed;
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+	}
 
-		if (Input.GetKeyDown(KeyCode.Z))
-		{
-			jump = true;
-		}
+	void OnJump(InputAction.CallbackContext context)
+	{
+		jump = true;
+	}
 
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			dash = true;
-		}
-
-		/*if (Input.GetAxisRaw("Dash") == 1 || Input.GetAxisRaw("Dash") == -1) //RT in Unity 2017 = -1, RT in Unity 2019 = 1
-		{
-			if (dashAxis == false)
-			{
-				dashAxis = true;
-				dash = true;
-			}
-		}
-		else
-		{
-			dashAxis = false;
-		}
-		*/
-
+	void OnDash(InputAction.CallbackContext context)
+	{
+		dash = true;
 	}
 
 	public void OnFall()

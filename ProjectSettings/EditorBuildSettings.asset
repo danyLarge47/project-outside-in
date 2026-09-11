@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Game Source/Scenes/Inner World 1.unity
+    guid: e42bcfe1bf7ee4c3295b1a2aee0e0019
+  - enabled: 1
+    path: Assets/_Game Source/Scenes/VN Scene.unity
+    guid: e655fd331c59d4dab8fafd6dd2efe8c7
   m_configObjects: {}

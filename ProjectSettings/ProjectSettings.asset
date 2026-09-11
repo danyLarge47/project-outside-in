@@ -169,7 +169,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    iPhone: com.DefaultCompany.project-outside-in
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -449,7 +450,10 @@ PlayerSettings:
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
-  m_BuildTargetDefaultTextureCompressionFormat: []
+  m_BuildTargetDefaultTextureCompressionFormat:
+  - serializedVersion: 3
+    m_BuildTarget: iOS
+    m_Formats: 03000000i
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -732,7 +736,7 @@ PlayerSettings:
     QNX: DOTWEEN;DOTWEEN_TEXTMESHPRO
     Standalone: DOTWEEN;DOTWEEN_TEXTMESHPRO
     VisionOS: DOTWEEN;DOTWEEN_TEXTMESHPRO
-    WebGL: DOTWEEN;DOTWEEN_TEXTMESHPRO
+    WebGL: DOTWEEN;DOTWEEN_TEXTMESHPRO;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3
     Windows Store Apps: DOTWEEN;DOTWEEN_TEXTMESHPRO
     XboxOne: DOTWEEN;DOTWEEN_TEXTMESHPRO
     iPhone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;DOTWEEN;DOTWEEN_TEXTMESHPRO
@@ -833,7 +837,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
   cloudProjectId: 
