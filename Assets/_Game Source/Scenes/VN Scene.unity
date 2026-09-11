@@ -982,8 +982,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 722, y: -88}
-  m_SizeDelta: {x: 332.8557, y: 365}
+  m_AnchoredPosition: {x: 704, y: -127}
+  m_SizeDelta: {x: 614.83, y: 823.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &131436150
 MonoBehaviour:
@@ -1614,8 +1614,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -654, y: -0.000022888}
-  m_SizeDelta: {x: 291.0858, y: 390.46}
+  m_AnchoredPosition: {x: -656, y: 165.01}
+  m_SizeDelta: {x: 490.06, y: 626.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &297592385
 MonoBehaviour:
@@ -3349,8 +3349,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -230, y: 2}
-  m_SizeDelta: {x: 284.9784, y: 455.54}
+  m_AnchoredPosition: {x: -161, y: 189.18}
+  m_SizeDelta: {x: 551.87, y: 675.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &733438074
 MonoBehaviour:
@@ -3587,8 +3587,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -63, y: -425}
-  m_SizeDelta: {x: 332.8557, y: 365}
+  m_AnchoredPosition: {x: -141, y: -567}
+  m_SizeDelta: {x: 721.48, y: 837.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &760347535
 MonoBehaviour:
@@ -3651,22 +3651,36 @@ MonoBehaviour:
       m_Calls: []
   m_Instructions:
     m_Instructions:
-    - rid: 5174007284133265687
+    - rid: 5174007303038828934
+    - rid: 5174007303038828935
   references:
     version: 2
     RefIds:
-    - rid: 5174007284133265687
-      type: {class: InstructionCommonDebugText, ns: GameCreator.Runtime.VisualScripting, asm: GameCreator.Runtime.Core}
+    - rid: 5174007303038828934
+      type: {class: Action_Curtain, ns: , asm: Assembly-CSharp}
       data:
         m_Breakpoint: 0
         m_IsEnabled: 1
-        m_Message:
-          m_Property:
-            rid: 5174007284133265688
-    - rid: 5174007284133265688
-      type: {class: GetStringString, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
+        showCurtain: 1
+    - rid: 5174007303038828935
+      type: {class: InstructionCommonSceneLoad, ns: GameCreator.Runtime.VisualScripting, asm: GameCreator.Runtime.Core}
       data:
-        m_Value: Click!
+        m_Breakpoint: 0
+        m_IsEnabled: 1
+        m_Scene:
+          m_Property:
+            rid: 5174007303038828936
+        m_Mode: 0
+        m_Async: 0
+        m_SceneEntries:
+          m_Entries: []
+    - rid: 5174007303038828936
+      type: {class: GetSceneAsset, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
+      data:
+        m_Scene:
+          m_Scene: {fileID: 102900000, guid: e42bcfe1bf7ee4c3295b1a2aee0e0019, type: 3}
+          m_SceneName: Inner World 1
+          m_SceneIndex: 2
 --- !u!114 &760347537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3687,7 +3701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042a7cbebe0eb4ba1b7da0322e588db5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eec198827000c7a4aadd4768beffa394, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4871,8 +4885,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 245, y: 226}
-  m_SizeDelta: {x: 378.1079, y: 486.2029}
+  m_AnchoredPosition: {x: 382, y: 266}
+  m_SizeDelta: {x: 607.51, y: 723.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1237927343
 MonoBehaviour:
@@ -4956,7 +4970,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc0e467deb9434cfb91aa96dea4e941c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 042a7cbebe0eb4ba1b7da0322e588db5, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5189,45 +5203,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameCreator.Runtime.Core::GameCreator.Runtime.VisualScripting.Actions
   m_Instructions:
-    m_Instructions:
-    - rid: 5174007303038828633
-    - rid: 5174007303038828631
+    m_Instructions: []
   references:
     version: 2
-    RefIds:
-    - rid: 5174007303038828631
-      type: {class: InstructionCommonSceneLoad, ns: GameCreator.Runtime.VisualScripting, asm: GameCreator.Runtime.Core}
-      data:
-        m_Breakpoint: 0
-        m_IsEnabled: 1
-        m_Scene:
-          m_Property:
-            rid: 5174007303038828632
-        m_Mode: 0
-        m_Async: 0
-        m_SceneEntries:
-          m_Entries: []
-    - rid: 5174007303038828632
-      type: {class: GetSceneAsset, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Scene:
-          m_Scene: {fileID: 102900000, guid: e42bcfe1bf7ee4c3295b1a2aee0e0019, type: 3}
-          m_SceneName: Inner World 1
-          m_SceneIndex: 0
-    - rid: 5174007303038828633
-      type: {class: InstructionCommonTimeWait, ns: GameCreator.Runtime.VisualScripting, asm: GameCreator.Runtime.Core}
-      data:
-        m_Breakpoint: 0
-        m_IsEnabled: 1
-        m_Seconds:
-          m_Property:
-            rid: 5174007303038828634
-        m_Mode:
-          m_UpdateTime: 0
-    - rid: 5174007303038828634
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 0.25
+    RefIds: []
 --- !u!1 &1301887480
 GameObject:
   m_ObjectHideFlags: 0

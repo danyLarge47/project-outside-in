@@ -58,7 +58,6 @@ public class VN_Dialogue_Delivery : MonoBehaviour
 
         await CloseDialogue();
 
-        await GameConfig.Instance.showCurtain.Run();
         goToActionScene?.Run();
         
     }
