@@ -20,8 +20,8 @@ public class VN_World_Manager : MonoBehaviour
     // public VN_Dialogue_Choice dialogueChoice;
     public VN_Dialogue_Delivery dialogueDelivery;
 
-    public List<VN_CharacterData> characters = new List<VN_CharacterData>();
-    public List<VN_DialogueData> dialogues = new List<VN_DialogueData>();
+    // public List<VN_CharacterData> characters = new List<VN_CharacterData>();
+    // public List<VN_DialogueData> dialogues = new List<VN_DialogueData>();
 
     private void Start()
     {
